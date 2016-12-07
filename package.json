@@ -17,7 +17,8 @@
   "scripts": {
     "test": "xo",
     "start": "electron .",
-    "build": "electron-packager . $npm_package_productName --overwrite --out=dist --ignore='^/dist$' --ignore='^/media$' --prune --asar --platform=darwin --arch=x64 --icon=media/Icon.icns --app-bundle-id=com.joezo.kamori --app-version=$npm_package_version --version=$npm_package_electronVersion && cd dist/Kamori-darwin-x64 && zip -ryXq9 ../Kamori-${npm_package_version}.zip Kamori.app"
+    "build:osx": "electron-packager . $npm_package_productName --overwrite --out=dist --ignore='^/dist$' --ignore='^/media$' --prune --asar --platform=darwin --arch=x64 --icon=media/Icon.icns --app-bundle-id=com.joezo.kamori --app-version=$npm_package_version --version=$npm_package_electronVersion && cd dist/Kamori-darwin-x64 && zip -ryXq9 ../Kamori-${npm_package_version}.zip Kamori.app",
+    "build": "build"
   },
   "files": [
     "index.js",
@@ -35,12 +36,20 @@
     "kamori"
   ],
   "dependencies": {
-    "electron-debug": "^0.2.1"
+    "electron-debug": "^1.1.0"
   },
   "devDependencies": {
-    "electron-packager": "^5.1.0",
-    "electron-prebuilt": "^0.33.0",
+    "electron-builder": "^10.6.0",
+    "electron-packager": "^8.3.0",
+    "electron-prebuilt": "^1.4.10",
     "xo": "*"
+  },
+  "build": {
+    "appId": "com.joezo.kamori",
+    "productName": "Kamori",
+    "linux": {
+      "target": "deb"
+    }
   },
   "xo": {
     "esnext": true,

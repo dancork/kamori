@@ -1,9 +1,6 @@
 'use strict';
 const os = require('os');
-const app = require('app');
-const Menu = require('menu');
-const BrowserWindow = require('browser-window');
-const shell = require('shell');
+const { app, BrowserWindow, shell, Menu } = require('electron');
 const appName = app.getName();
 
 function sendAction(action) {

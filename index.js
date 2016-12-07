@@ -1,18 +1,16 @@
 'use strict';
 const path = require('path');
 const fs = require('fs');
-const app = require('app');
-const BrowserWindow = require('browser-window');
-const shell = require('shell');
-const Menu = require('menu');
+const { app, BrowserWindow, shell, Menu, crashReporter } = require('electron');
 const appMenu = require('./menu');
 
 require('electron-debug')();
-require('crash-reporter').start();
+// crashReporter.start();
 
 let mainWindow;
 
 function updateBadge(title) {
+  if (!app.dock) return;
   if (title.indexOf('WhatsApp Web') === -1) {
     return;
   }
@@ -21,7 +19,7 @@ function updateBadge(title) {
 }
 
 function createMainWindow() {
-  const win = new BrowserWindow({
+  let win = new BrowserWindow({
     'title': app.getName(),
     'show': false,
     'width': 800,
@@ -39,7 +37,7 @@ function createMainWindow() {
     }
   });
 
-  win.loadUrl('https://web.whatsapp.com/', {userAgent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.85 Safari/537.36"});
+  win.loadURL('https://web.whatsapp.com/', {userAgent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.85 Safari/537.36"});
   win.on('closed', app.quit);
   win.on('page-title-updated', (e, title) => updateBadge(title));
 
